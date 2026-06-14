@@ -143,6 +143,44 @@ button.secondary:hover {
   color: var(--text);
 }
 
+.export-btn {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+
+.export-btn:active {
+  transform: scale(0.97);
+}
+
+.export-btn:hover {
+  filter: brightness(0.9);
+}
+
+.export-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-csv {
+  background: #16a34a;
+  color: #fff;
+}
+
+.btn-pdf {
+  background: #dc2626;
+  color: #fff;
+}
+
+.btn-jpg {
+  background: #d97706;
+  color: #fff;
+}
+
 /* ── Report ── */
 .hidden {
   display: none;
@@ -195,6 +233,7 @@ button.secondary:hover {
 .table-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 0.6rem;
   margin-bottom: 0.75rem;
 }
 

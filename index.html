@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loan Details Calculator</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- jsPDF + AutoTable for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <!-- html2canvas for JPG export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -82,7 +87,9 @@
         </div>
 
         <div class="table-actions">
-          <button id="exportBtn" class="secondary">Export CSV</button>
+          <button id="exportCsvBtn" class="export-btn btn-csv">Export CSV</button>
+          <button id="exportPdfBtn" class="export-btn btn-pdf">Export PDF</button>
+          <button id="exportJpgBtn" class="export-btn btn-jpg">Export JPG</button>
         </div>
 
         <div class="table-wrapper">
