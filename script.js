@@ -111,12 +111,12 @@ function renderReport(principal, annualRate, months, emi, rows) {
   const totalPaid     = emi * months;
   const totalInterest = totalPaid - principal;
 
-  document.getElementById('s-loan').textContent    = '₹ ' + fmt(principal);
+  document.getElementById('s-loan').textContent    = fmt(principal);
   document.getElementById('s-rate').textContent    = annualRate + ' %';
   document.getElementById('s-tenure').textContent  = months + ' months';
-  document.getElementById('s-emi').textContent     = '₹ ' + fmt(emi);
-  document.getElementById('s-total').textContent   = '₹ ' + fmt(totalPaid);
-  document.getElementById('s-interest').textContent = '₹ ' + fmt(totalInterest);
+  document.getElementById('s-emi').textContent     = fmt(emi);
+  document.getElementById('s-total').textContent   = fmt(totalPaid);
+  document.getElementById('s-interest').textContent = fmt(totalInterest);
 
   scheduleBody.innerHTML = '';
 
