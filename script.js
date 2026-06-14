@@ -5,6 +5,23 @@ const reportDiv    = document.getElementById('report');
 const scheduleBody = document.getElementById('scheduleBody');
 const resetBtn     = document.getElementById('resetBtn');
 
+// ── Tenure unit toggle ─────────────────────────────────────────────────────
+
+let tenureUnit = 'months'; // 'months' | 'years'
+
+document.getElementById('btnMonths').addEventListener('click', () => setTenureUnit('months'));
+document.getElementById('btnYears').addEventListener('click',  () => setTenureUnit('years'));
+
+function setTenureUnit(unit) {
+  tenureUnit = unit;
+  const tenureInput = document.getElementById('tenure');
+  document.getElementById('btnMonths').classList.toggle('active', unit === 'months');
+  document.getElementById('btnYears').classList.toggle('active',  unit === 'years');
+  tenureInput.placeholder = unit === 'months' ? 'e.g. 36' : 'e.g. 3';
+  tenureInput.value = '';
+  setError('tenure', '');
+}
+
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function fmt(n) {
@@ -56,7 +73,7 @@ function validate() {
     setError('tenure', 'Tenure is required.');
     ok = false;
   } else if (!Number.isInteger(Number(tenRaw)) || Number(tenRaw) <= 0) {
-    setError('tenure', 'Enter a positive whole number of months.');
+    setError('tenure', `Enter a positive whole number of ${tenureUnit}.`);
     ok = false;
   } else {
     setError('tenure', '');
@@ -99,13 +116,13 @@ function buildSchedule(principal, annualRate, months) {
 
 // ── Render report ──────────────────────────────────────────────────────────
 
-function renderReport(principal, annualRate, months, emi, rows) {
+function renderReport(principal, annualRate, months, emi, rows, tenureLabel) {
   const totalPaid     = emi * months;
   const totalInterest = totalPaid - principal;
 
   document.getElementById('s-loan').textContent     = fmt(principal);
   document.getElementById('s-rate').textContent     = annualRate + ' %';
-  document.getElementById('s-tenure').textContent   = months + ' months';
+  document.getElementById('s-tenure').textContent   = tenureLabel;
   document.getElementById('s-emi').textContent      = fmt(emi);
   document.getElementById('s-total').textContent    = fmt(totalPaid);
   document.getElementById('s-interest').textContent = fmt(totalInterest);
@@ -319,14 +336,18 @@ form.addEventListener('submit', e => {
   e.preventDefault();
   if (!validate()) return;
 
-  const principal  = parseInt(getVal('loanAmount'), 10);
-  const annualRate = parseFloat(getVal('interestRate'));
-  const months     = parseInt(getVal('tenure'), 10);
+  const principal    = parseInt(getVal('loanAmount'), 10);
+  const annualRate   = parseFloat(getVal('interestRate'));
+  const tenureRaw    = parseInt(getVal('tenure'), 10);
+  const months       = tenureUnit === 'years' ? tenureRaw * 12 : tenureRaw;
+  const tenureLabel  = tenureUnit === 'years'
+    ? `${tenureRaw} year${tenureRaw !== 1 ? 's' : ''} (${months} months)`
+    : `${months} months`;
 
   const { emi, rows } = buildSchedule(principal, annualRate, months);
   lastCalc = { principal, annualRate, months, emi, rows };
 
-  renderReport(principal, annualRate, months, emi, rows);
+  renderReport(principal, annualRate, months, emi, rows, tenureLabel);
 });
 
 document.getElementById('exportCsvBtn').addEventListener('click', () => {
@@ -349,6 +370,7 @@ document.getElementById('exportJpgBtn').addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
   form.reset();
   ['loanAmount', 'interestRate', 'tenure'].forEach(id => setError(id, ''));
+  setTenureUnit('months');
   reportDiv.classList.add('hidden');
   lastCalc = null;
 });

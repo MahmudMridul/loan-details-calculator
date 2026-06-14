@@ -41,7 +41,13 @@
         </div>
 
         <div class="form-group">
-          <label for="tenure">Loan Tenure (months)</label>
+          <div class="label-row">
+            <label for="tenure">Loan Tenure</label>
+            <div class="tenure-toggle" role="group" aria-label="Tenure unit">
+              <button type="button" class="toggle-btn active" id="btnMonths" data-unit="months">Months</button>
+              <button type="button" class="toggle-btn" id="btnYears" data-unit="years">Years</button>
+            </div>
+          </div>
           <input
             type="number"
             id="tenure"

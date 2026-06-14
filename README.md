@@ -12,16 +12,17 @@ A lightweight, client-side web app that calculates loan EMI and generates a full
   - **CSV** — same layout as the original spreadsheet, ready to open in Excel / Google Sheets
   - **PDF** — landscape A4 with a branded header, summary cards, and a paginated table (via jsPDF + AutoTable)
   - **JPG** — high-resolution (2×) screenshot of the report (via html2canvas)
+- **Tenure Unit Toggle** — switch the tenure field between **Months** and **Years** with a pill toggle; years are converted to months internally before calculation, and the summary card shows both (e.g. `3 years (36 months)`)
 - **Input Validation** — inline errors for empty, non-integer, or non-positive values
 - **Fully Responsive** — adapts to mobile (≤480 px), tablet (≤768 px), and laptop/desktop
 
 ## Input Fields
 
-| Field                    | Type    | Description                               |
-| ------------------------ | ------- | ----------------------------------------- |
-| Loan Amount              | Integer | Principal loan amount                     |
-| Annual Interest Rate (%) | Decimal | Yearly interest rate, e.g. `12` or `10.5` |
-| Loan Tenure (months)     | Integer | Repayment period in months, e.g. `36`     |
+| Field                    | Type    | Description                                                      |
+| ------------------------ | ------- | ---------------------------------------------------------------- |
+| Loan Amount              | Integer | Principal loan amount                                            |
+| Annual Interest Rate (%) | Decimal | Yearly interest rate, e.g. `12` or `10.5`                       |
+| Loan Tenure              | Integer | Repayment period — enter in **Months** or **Years** (toggle to switch) |
 
 ## Tech Stack
 
